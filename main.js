@@ -1,7 +1,11 @@
 const config = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 600,
+    width: 1000, // 基础宽度
+    height: 600, // 基础高度
+    scale: {
+        mode: Phaser.Scale.FIT, // 自动缩放模式
+        autoCenter: Phaser.Scale.CENTER_BOTH, // 居中画布
+    },
     scene: {
         preload: preload,
         create: create,
