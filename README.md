@@ -4,7 +4,9 @@
 
 UFOverse is a simple interactive game where players can communicate with aliens. In the **Version 0**, each alien reacts to the selected keywords with unique responses. 
 
-Play the game here: [UFOverse Game](https://ufoverse.netlify.app/)
+Play the game: [UFOverse Game](https://ufoverse.netlify.app/)
+
+Alien illustrations by [UFO](https://www.instagram.com/ufo1999stagram/)
 
 ---
 
