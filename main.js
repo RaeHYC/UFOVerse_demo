@@ -1,10 +1,10 @@
 const config = {
     type: Phaser.AUTO,
-    width: 1000, // 基础宽度
-    height: 600, // 基础高度
+    width: 1000, // Base width
+    height: 600, // Base height
     scale: {
-        mode: Phaser.Scale.FIT, // 自动缩放模式
-        autoCenter: Phaser.Scale.CENTER_BOTH, // 居中画布
+        mode: Phaser.Scale.FIT, // Auto-scaling mode
+        autoCenter: Phaser.Scale.CENTER_BOTH, // Center the canvas
     },
     scene: {
         preload: preload,
@@ -25,7 +25,7 @@ let dropdownGraphics;
 let alien1Dialogue, alien2Dialogue;
 let scrollOffset = 0;
 const visibleItemCount = 5;
-let dropdownTextObjects = []; // 用於存儲文本對象的陣列
+let dropdownTextObjects = []; // Array to store text objects
 
 function preload() {
     this.load.image('background', 'assets/images/background.jpg');
@@ -59,7 +59,7 @@ function create() {
     }).setOrigin(0.5).setVisible(false);
 
     dropdownGraphics = this.add.graphics();
-    dropdown = this.add.text(50, 50, "選擇關鍵字", {
+    dropdown = this.add.text(50, 50, "Select Keyword", {
         fontSize: '20px',
         color: '#000000',
         backgroundColor: '#ffffff',
@@ -76,34 +76,34 @@ function create() {
 
     this.input.on('pointerdown', (pointer) => {
         if (dropdownOpen) {
-            const trackHeight = visibleItemCount * 30; // 滑轨总高度
-            const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // 滑块高度
+            const trackHeight = visibleItemCount * 30; // Total height of the scrollbar track
+            const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // Height of the scrollbar thumb
             const thumbY = 80 + (scrollOffset / (dropdownItems.length - visibleItemCount)) * (trackHeight - thumbHeight);
-    
-            // 检查是否点击在滑块范围内
+
+            // Check if the click is within the thumb's range
             if (pointer.x >= 250 && pointer.x <= 260 && pointer.y >= thumbY && pointer.y <= thumbY + thumbHeight) {
-                this.input.on('pointermove', onDrag, this); // 添加拖动事件
+                this.input.on('pointermove', onDrag, this); // Add drag event
             }
         }
     });
-    
+
     this.input.on('pointerup', () => {
-        this.input.off('pointermove', onDrag, this); // 移除拖动事件
+        this.input.off('pointermove', onDrag, this); // Remove drag event
     });
-    
+
     function onDrag(pointer) {
         if (dropdownOpen) {
-            const trackHeight = visibleItemCount * 30; // 滑轨总高度
-            const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // 滑块高度
-            const thumbTop = 80; // 滑轨顶部
-            const thumbBottom = 80 + trackHeight - thumbHeight; // 滑轨底部
-    
-            // 限制滑块移动范围
+            const trackHeight = visibleItemCount * 30; // Total height of the scrollbar track
+            const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // Height of the scrollbar thumb
+            const thumbTop = 80; // Top of the scrollbar track
+            const thumbBottom = 80 + trackHeight - thumbHeight; // Bottom of the scrollbar track
+
+            // Restrict the thumb's movement range
             if (pointer.y >= thumbTop && pointer.y <= thumbBottom) {
                 const newScrollOffset = Math.round(((pointer.y - thumbTop) / (trackHeight - thumbHeight)) * (dropdownItems.length - visibleItemCount));
                 if (newScrollOffset !== scrollOffset) {
                     scrollOffset = newScrollOffset;
-                    renderDropdown(this); // 重新渲染下拉选单
+                    renderDropdown(this); // Re-render the dropdown
                 }
             }
         }
@@ -140,11 +140,11 @@ function renderDropdown(scene) {
     if (dropdownOpen) {
         const visibleItems = dropdownItems.slice(scrollOffset, scrollOffset + visibleItemCount);
 
-        // 渲染下拉框背景
+        // Render dropdown background
         dropdownGraphics.fillStyle(0xFFFFFF, 1);
         dropdownGraphics.fillRect(50, 80, 200, visibleItemCount * 30);
 
-        // 渲染选项文字
+        // Render option texts
         for (let i = 0; i < visibleItems.length; i++) {
             const y = 80 + i * 30;
             const text = scene.add.text(60, y + 5, visibleItems[i], {
@@ -171,20 +171,21 @@ function renderDropdown(scene) {
             dropdownTextObjects.push(text);
         }
 
-        // 渲染滑轨和滑块
-        const trackHeight = visibleItemCount * 30; // 滑轨总高度
-        const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // 滑块高度
+        // Render scrollbar track and thumb
+        const trackHeight = visibleItemCount * 30; // Total height of the scrollbar track
+        const thumbHeight = (visibleItemCount / dropdownItems.length) * trackHeight; // Height of the scrollbar thumb
         const thumbY = 80 + (scrollOffset / (dropdownItems.length - visibleItemCount)) * (trackHeight - thumbHeight);
 
-        // 绘制滑轨
+        // Draw scrollbar track
         dropdownGraphics.fillStyle(0xCCCCCC, 1);
         dropdownGraphics.fillRect(250, 80, 10, trackHeight);
 
-        // 绘制滑块
+        // Draw scrollbar thumb
         dropdownGraphics.fillStyle(0x999999, 1);
         dropdownGraphics.fillRect(250, thumbY, 10, thumbHeight);
     }
 }
+
 
 
 
