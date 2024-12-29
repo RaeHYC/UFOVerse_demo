@@ -27,6 +27,7 @@ UFOverse/
 ├── assets/
 │   ├── images/          # Game images (background, characters)
 │   ├── audio/           # Game music and sound effects
+│   ├── phaser.js        # Game framework library for building 2D games
 │   └── keywords.json    # Keywords and response data
 ├── main.js              # Game logic (Phaser.js)
 ├── index.html           # Game entry file
